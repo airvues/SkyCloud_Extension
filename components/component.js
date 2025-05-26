@@ -17,7 +17,7 @@ const Component = () => {
 
     try {
       const response = await fetch(
-        `https://api.airtable.com/v0/appeE4S87yKBhZZyb/Warranty?filterByFormula={Warranty ID}='${warrantyNumber}'`,
+        `https://api.airtable.com/v0/appKvsuXgcddOMTjY/Warranty?filterByFormula={Warranty ID}='${warrantyNumber}'`,
         {
           method: "GET",
           headers: {
