@@ -1,0 +1,60 @@
+/* style.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #EAEAEE;
+  width: 100%;
+  max-width: 400px;
+  margin: 50px auto;
+  font-family: "Arial Narrow", Impact, "Franklin Gothic Medium", sans-serif;
+
+.form {
+  width: 100%;
+  
+  font-family: "Arial Narrow", Impact, "Franklin Gothic Medium", sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+  
+  font-family: "Arial Narrow", Impact, "Franklin Gothic Medium", sans-serif;
+}
+
+.input:focus {
+  border-color: #0056b3;
+  outline: none;
+
+  font-family: "Arial Narrow", Impact, "Franklin Gothic Medium", sans-serif;
+}
+
+.button {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+
+  font-family: "Arial Narrow", Impact, "Franklin Gothic Medium", sans-serif;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
