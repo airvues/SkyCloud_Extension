@@ -14,50 +14,62 @@ const Component = () => {
       alert("Please enter a warranty number.");
       return;
     }
-
    
     try {
-      const response = await fetch(
-        `https://api.airtable.com/v0/appKvsuXgcddOMTjY/Warranty?filterByFormula={Warranty ID}='${warrantyNumber}'`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer pat6KvYTi3z5HO3oS.c7107d0658abf21d245b229ee1ff8b176092a0b251c8401a4dd9ee327353d9df",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  console.log("🔍 Starting fetch for warrantyNumber:", warrantyNumber);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      if (data.records.length > 0) {
-        const record = data.records[0].fields;
-        setWarrantyData({
-          thumbnailImage: record["Thumbnail Image"] ? record["Thumbnail Image"][0].url : null,
-          model: record["Model"],
-          brand: record["Brand"],
-          referenceNumber: record["Reference Number"],
-          serialNumber: record["Serial Number"],
-          band: record["Band"],
-          dial: record["Dial"],
-          purchaseDate: record["Purchase Date"],
-          warrantyID: record["Warranty ID"],
-          warrantyStart: record["Warranty Start"],
-          warrantyEnd: record["Warranty End"],
-          warrantyStatus: record["Warranty Status"],
-        });
-        setError(null);
-      } else {
-        setWarrantyData(null);
-        setError("Warranty ID does not match our records");
-      }
-    } catch (error) {
-      setWarrantyData(null);
-      setError("An error occurred while verifying warranty");
+  const response = await fetch(
+    `https://api.airtable.com/v0/appKvsuXgcddOMTjY/Warranty?filterByFormula={Warranty ID}='${warrantyNumber}'`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer pat6KvYTi3z5HO3oS.c7107d0658abf21d245b229ee1ff8b176092a0b251c8401a4dd9ee327353d9df",
+        "Content-Type": "application/json",
+      },
     }
+  );
+
+  console.log("📡 Response status code:", response.status);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.error("❌ Airtable response error text:", errorText);
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await response.json();
+  console.log("✅ Parsed response JSON:", data);
+
+  if (data.records.length > 0) {
+    const record = data.records[0].fields;
+    console.log("📄 Found matching warranty record:", record);
+
+    setWarrantyData({
+      thumbnailImage: record["Thumbnail Image"] ? record["Thumbnail Image"][0].url : null,
+      model: record["Model"],
+      brand: record["Brand"],
+      referenceNumber: record["Reference Number"],
+      serialNumber: record["Serial Number"],
+      band: record["Band"],
+      dial: record["Dial"],
+      purchaseDate: record["Purchase Date"],
+      warrantyID: record["Warranty ID"],
+      warrantyStart: record["Warranty Start"],
+      warrantyEnd: record["Warranty End"],
+      warrantyStatus: record["Warranty Status"],
+    });
+    setError(null);
+  } else {
+    console.warn("⚠️ No matching records found for Warranty ID:", warrantyNumber);
+    setWarrantyData(null);
+    setError("Warranty ID does not match our records");
+  }
+} catch (error) {
+  console.error("💥 Error occurred during fetch:", error);
+  setWarrantyData(null);
+  setError("An error occurred while verifying warranty");
+}
+
   };
 
   return (
