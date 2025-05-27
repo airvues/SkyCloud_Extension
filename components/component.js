@@ -21,7 +21,7 @@ const Component = () => {
         {
           method: "GET",
           headers: {
-            Authorization: "Bearer patOfQ8P7MniItKxY",
+            Authorization: "Bearer pat05Vg2vnIbYbu3M.29a76d66ebbb4016023081d27db057dc93961a633e9659332098cc02454fe839",
             "Content-Type": "application/json",
           },
         }
