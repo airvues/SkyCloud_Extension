@@ -16,20 +16,24 @@ const Component = () => {
     }
 
     try {
-      const response = await fetch(
-        `https://api.airtable.com/v0/appKvsuXgcddOMTjY/Warranty?filterByFormula={Warranty ID}='${warrantyNumber}'`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer pat05Vg2vnIbYbu3M.29a76d66ebbb4016023081d27db057dc93961a633e9659332098cc02454fe839",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  const formula = `AND({Warranty ID}='${warrantyNumber}')`;
+  const encodedFormula = encodeURIComponent(formula);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
+  const response = await fetch(
+    `https://api.airtable.com/v0/appKvsuXgcddOMTjY/Warranty?filterByFormula=${encodedFormula}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer pat05Vg2vnIbYbu3M.29a76d66ebbb4016023081d27db057dc93961a633e9659332098cc02454fe839",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
 
       const data = await response.json();
       if (data.records.length > 0) {
